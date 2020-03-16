@@ -10,9 +10,9 @@
         <input id="searchInput" class="search__input" type="text" v-model="searchName">
       </div>
       <div class="pagination">
-        <button type="button" class="btn pagination__btn" v-if="page != 1" @click="page--"> << </button>
+        <button type="button" class="btn pagination__btn" v-if="page != 1" @click="page--"> - </button>
         <button type="button" class="btn pagination__btn" v-for="pageNumber in pages.slice(page-1, page+2)" :key="pageNumber.id" @click="page = pageNumber"> {{pageNumber}} </button>
-        <button type="button" @click="page++" v-if="page < pages.length" class="btn pagination__btn"> >> </button>
+        <button type="button" class="btn pagination__btn" @click="page++" v-if="page < pages.length"> + </button>
       </div>
       <div class="main">
         <ul class="main__item">
@@ -49,9 +49,9 @@
         </ul>
       </div>
       <div class="pagination">
-        <button type="button" class="btn pagination__btn" v-if="page != 1" @click="page--"> << </button>
+        <button type="button" class="btn pagination__btn" v-if="page != 1" @click="page--"> - </button>
         <button type="button" class="btn pagination__btn" v-for="pageNumber in pages.slice(page-1, page+2)" :key="pageNumber.id" @click="page = pageNumber"> {{pageNumber}} </button>
-        <button type="button" @click="page++" v-if="page < pages.length" class="btn pagination__btn"> >> </button>
+        <button type="button" class="btn pagination__btn" @click="page++" v-if="page < pages.length"> + </button>
       </div>
     </div>
 
@@ -106,58 +106,58 @@
       <div class="background" @click="popapDetailShow = !popapDetailShow"></div>
       <div class="detail__container">
         <div class="cloused" @click="popapDetailShow = !popapDetailShow">X</div>
-        <form class="detail__content" @submit.prevent="submitDetail">
+        <div class="detail__content">
           <h2 class="detail__header">
             Добавить контакт
           </h2>          
           <div class="detail__block">
             <div class="detail__block--input">
               <label for="popapAdded_1" class="detail__label">Name</label>
-              <input type="text" v-model="popapDetailArr.name" id="popapAdded_1" class="detail__input" value="popapDetailArr.name">
+              <input type="text" id="popapAdded_1" class="detail__input" v-model="popapDetailArr.name">
             </div>
             <div class="detail__block--input">
               <label for="popapAdded_2" class="detail__label">Email</label>
-              <input type="text" v-model="popapDetailArr.email" id="popapAdded_2" class="detail__input" value="popapDetailArr.email">
+              <input type="text" id="popapAdded_2" class="detail__input" v-model="popapDetailArr.email">
             </div>
             <div class="detail__block--input">
               <label for="popapAdded_3" class="detail__label">Phone</label>
-              <input type="text" v-model="popapDetailArr.phone" id="popapAdded_3" class="detail__input" value="popapDetailArr.phone">
+              <input type="text" id="popapAdded_3" class="detail__input" v-model="popapDetailArr.phone">
             </div>
             <div class="detail__block--input">
               <label for="popapAdded_4" class="detail__label">Website</label>
-              <input type="text" v-model="popapDetailArr.website" id="popapAdded_4" class="detail__input" value="popapDetailArr.website">
+              <input type="text" id="popapAdded_4" class="detail__input" v-model="popapDetailArr.website">
             </div>
             <div class="detail__block--input">
               <label for="popapAdded_5" class="detail__label">Company</label>
-              <input type="text" v-model="popapDetailArr.company.name" id="popapAdded_5" class="detail__input" value="popapDetailArr.company.name">
+              <input type="text" id="popapAdded_5" class="detail__input" v-model="popapDetailArr.company.name">
             </div>
             <div class="detail__block--input">
               <label for="popapAdded_6" class="detail__label">State</label>
-              <input type="text" v-model="popapDetailArr.address.state" id="popapAdded_6" class="detail__input" value="popapDetailArr.address.state">
+              <input type="text" id="popapAdded_6" class="detail__input" v-model="popapDetailArr.address.state">
             </div>
             <div class="detail__block--input">
               <label for="popapAdded_7" class="detail__label">City</label>
-              <input type="text" v-model="popapDetailArr.address.city" id="popapAdded_7" class="detail__input" value="popapDetailArr.address.city">
+              <input type="text" id="popapAdded_7" class="detail__input" v-model="popapDetailArr.address.city">
             </div>
             <div class="detail__block--input">
               <label for="popapAdded_8" class="detail__label">StreetA</label>
-              <input type="text" v-model="popapDetailArr.address.streetA" id="popapAdded_8" class="detail__input" value="popapDetailArr.address.streetA">
+              <input type="text" id="popapAdded_8" class="detail__input" v-model="popapDetailArr.address.streetA">
             </div>
             <div class="detail__block--input">
               <label for="popapAdded_9" class="detail__label">StreetB</label>
-              <input type="text" v-model="popapDetailArr.address.streetB" id="popapAdded_9" class="detail__input" value="popapDetailArr.address.streetB">
+              <input type="text" id="popapAdded_9" class="detail__input" v-model="popapDetailArr.address.streetB">
             </div>
             <div class="detail__block--input">
               <label for="popapAdded_10" class="detail__label">StreetC</label>
-              <input type="text" v-model="popapDetailArr.address.streetC" id="popapAdded_10" class="detail__input" value="popapDetailArr.address.streetC">
+              <input type="text" id="popapAdded_10" class="detail__input" v-model="popapDetailArr.address.streetC">
             </div>
             <div class="detail__block--input">
               <label for="popapAdded_11" class="detail__label">StreetD</label>
-              <input type="text" v-model="popapDetailArr.address.streetD" id="popapAdded_11" class="detail__input" value="popapDetailArr.address.streetD">
+              <input type="text" id="popapAdded_11" class="detail__input" v-model="popapDetailArr.address.streetD">
             </div>
           </div>
-          <input type="submit" class="btn" value="Сохранить">
-        </form>
+          <button class="popap__btn btn" @click="popapDetailShow = !popapDetailShow">Закрыть</button>
+        </div>
       </div>
     </div>
   </div>
@@ -170,7 +170,6 @@ export default {
     return {
       posts: [],
       active: 0,
-      baseUrl: 'http://demo.sibers.com/users',
       page: 1,
       perPage: 10,
       pages: [],
@@ -178,11 +177,11 @@ export default {
       // popapAddedShow: false,
       popapDetailShow: false,
       popapDetailArr: []
-    }     
+    }
   },
   methods: {
     getPosts () {
-      this.$http.get(this.baseUrl)
+      this.$http.get('http://demo.sibers.com/users')
         .then(response => {
           this.posts = response.data;
         })
@@ -193,27 +192,28 @@ export default {
     setPages () {
       let numberOfPages = Math.ceil(this.posts.length / this.perPage);
       for (let index = 1; index <= numberOfPages; index++) {
-        this.pages.push(index);
+        this.pages.push(index)
       }
     },
-    paginate (posts) {
+    paginate (postsa) {
       let page = this.page;
       let perPage = this.perPage;
       let from = (page * perPage) - perPage;
       let to = (page * perPage);
-      return  posts.slice(from, to);
+      return  postsa.slice(from, to)
     },
     submitAded () {
 
     },
     popapDetail (elem) {
-      this.popapDetailArr = elem,
+      this.popapDetailArr = elem
+      this.active = elem.id
       this.popapDetailShow = true
     },
-    submitDetail () {
-      this.posts[this.active] = { ...this.posts[this.active], ...this.popapDetailArr };
-      this.popapDetailShow = false
-    }
+    // submitDetail () {      
+      // this.posts[this.active] = this.popapDetailArr
+      // this.popapDetailShow = false
+    // }
   },
   created () {
     this.getPosts();

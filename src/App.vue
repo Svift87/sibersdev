@@ -3,10 +3,7 @@
     <div class="container">  
       <div class="header">
         <h1 class="header__title">Книга контактов</h1>
-        <!-- <button class="header__added btn" @click="popapAddedShow = !popapAddedShow">Добавить</button> -->
       </div> 
-
-
       <div class="nav">        
         <div class="search">
           <label for="searchInput" class="search__lable bold">Поиск по имени</label>
@@ -16,11 +13,13 @@
           <button class="btn sort__btn" @click="sortName">Сортировка по первой букве</button>
         </div>
       </div>
-      
-
+      <!-- <ul>
+        <li v-for="letter in result" :key="letter.id">
+          <button class="btn" @click="sortLetter(letter)">{{letter}}</button>
+        </li>
+      </!--> -->
       <div class="main">
         <ul class="main__item">
-          
           <li class="main__list" v-for="item in filteredList" :key="item.id">
             <div class="main__contaier main__contaier--img">
               <img class="main__img" :src="item.avatar" alt="">
@@ -49,64 +48,10 @@
           </li>          
         </ul>
       </div>
-      <!-- <div class="pagination">
-        <button type="button" class="btn pagination__btn" v-if="page != 1" @click="page--"> - </button>
-        <button type="button" class="btn pagination__btn" v-for="pageNumber in pages.slice(page-1, page+2)" :key="pageNumber.id" @click="page = pageNumber"> {{pageNumber}} </button>
-        <button type="button" class="btn pagination__btn" @click="page++" v-if="page < pages.length"> + </button>
-      </div> -->
     </div>
-
-    <!-- <div class="popap added" v-if="popapAddedShow">
-      <div class="background" @click="popapAddedShow = !popapAddedShow"></div>
-      <div class="added__container">
-        <div class="cloused" @click="popapAddedShow = !popapAddedShow">X</div>
-        <form class="added__content">
-          <h2 class="added__header">
-            Добавить контакт
-          </h2>          
-          <div class="added__block">
-            <div class="added__block--input">
-              <label for="popapAdded_1" class="added__label">Имя</label>
-              <input type="text" id="popapAdded_1" class="added__input" required>
-            </div>
-            <div class="added__block--input">
-              <label for="popapAdded_2" class="added__label">Email</label>
-              <input type="text" id="popapAdded_2" class="added__input" required>
-            </div>
-            <div class="added__block--input">
-              <label for="popapAdded_3" class="added__label">Телефон</label>
-              <input type="text" id="popapAdded_3" class="added__input" required>
-            </div>
-            <div class="added__block--input">
-              <label for="popapAdded_4" class="added__label">Web-сайт</label>
-              <input type="text" id="popapAdded_4" class="added__input" required>
-            </div>
-            <div class="added__block--input">
-              <label for="popapAdded_5" class="added__label">Компания</label>
-              <input type="text" id="popapAdded_5" class="added__input" required>
-            </div>
-            <div class="added__block--input">
-              <label for="popapAdded_6" class="added__label">Область/Штат</label>
-              <input type="text" id="popapAdded_6" class="added__input" required>
-            </div>
-            <div class="added__block--input">
-              <label for="popapAdded_7" class="added__label">Город</label>
-              <input type="text" id="popapAdded_7" class="added__input" required>
-            </div>
-            <div class="added__block--input">
-              <label for="popapAdded_8" class="added__label">Улица</label>
-              <input type="text" id="popapAdded_8" class="added__input" required>
-            </div>
-          </div>
-          <input type="submit" class="btn" @click.prevent="submitAded">
-        </form>
-      </div>
-    </div> -->
-
     <div class="popap detail" v-if="popapDetailShow">
       <div class="background" @click="popapDetailShow = !popapDetailShow"></div>
       <div class="detail__container">
-        <div class="cloused" @click="popapDetailShow = !popapDetailShow">X</div>
         <div class="detail__content">
           <h2 class="detail__header">
             Добавить контакт
@@ -171,50 +116,37 @@ export default {
     return {
       posts: [],
       active: 0,
-      // page: 1,
-      // perPage: 10,
-      pages: [],
       searchName: '',
-      // popapAddedShow: false,
       popapDetailShow: false,
-      popapDetailArr: []
+      popapDetailArr: [],
+      // result: []
     }
   },
   methods: {
     getPosts () {
+      let arr = []
       this.$http.get('http://demo.sibers.com/users')
         .then(response => {
           this.posts = response.data;
-        })
-        .catch(response => {
-          console.log(response)
-      })
-    },
-    // setPages () {
-    //   let numberOfPages = Math.ceil(this.posts.length / this.perPage);
-    //   for (let index = 1; index <= numberOfPages; index++) {
-    //     this.pages.push(index)
-    //   }
-    // },
-    // paginate (posts) {
-    //   let page = this.page;
-    //   let perPage = this.perPage;
-    //   let from = (page * perPage) - perPage;
-    //   let to = (page * perPage);
-    //   return  posts.slice(from, to)
-    // },
-    submitAded () {
+          
+          // for (let i = 0; response.data.length > i; i++) {      
+          //   arr.push(response.data[i].name.substr(0, 1).toUpperCase())
+          // }          
+        })        
 
+      // setTimeout(() => {
+      //   for (let str of arr) {
+      //     if (!this.result.includes(str)) {
+      //       this.result.push(str);
+      //     }
+      //   }
+      // }, 200);
     },
     popapDetail (elem) {
       this.popapDetailArr = elem
       this.active = elem.id
       this.popapDetailShow = true
     },
-    // submitDetail () {      
-    //   this.posts[this.active] = this.popapDetailArr
-    //   this.popapDetailShow = false
-    // }
     sortName() {
       return this.posts.sort((a, b) => { 
         if (a.name > b.name) {
@@ -225,29 +157,23 @@ export default {
         }
         return 0;
       });
-    }
-  },
-  created () {
-    this.getPosts()
-
-  },
-  watch: {
-    // posts () {
-    //   this.setPages()
+    },
+    // sortLetter(ad) {
+    //   return this.posts.sort(function (elem) {
+    //     return elem.name.substr(0, 1).indexOf(ad) !== -1       
+    //   })
     // }
   },
+  created () {
+    this.getPosts()    
+  },
   computed: {
-    // displayedPosts () {
-    //   return this.paginate(this.posts)
-    // },
     filteredList: function(){
       let searchName = this.searchName;
       return this.posts.filter(function (elem) {
         return elem.name.toLowerCase().indexOf(searchName.toLowerCase()) !== -1;
       })
-    },
-
-
-  },
+    }
+  }
 }
 </script>

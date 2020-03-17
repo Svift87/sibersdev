@@ -1,26 +1,27 @@
 <template>
   <div id="app">
-    <div class="container">      
+    <div class="container">  
       <div class="header">
         <h1 class="header__title">Книга контактов</h1>
         <!-- <button class="header__added btn" @click="popapAddedShow = !popapAddedShow">Добавить</button> -->
+      </div> 
+
+
+      <div class="nav">        
+        <div class="search">
+          <label for="searchInput" class="search__lable bold">Поиск по имени</label>
+          <input id="searchInput" class="search__input" type="text" v-model="searchName">        
+        </div>
+        <div class="sort">
+          <button class="btn sort__btn" @click="sortName">Сортировка по первой букве</button>
+        </div>
       </div>
-      <div class="search">
-        <label for="searchInput" class="search__lable">Введите имя </label>
-        <input id="searchInput" class="search__input" type="text" v-model="searchName">
-      </div>
-      <div class="pagination">
-        <button type="button" class="btn pagination__btn" v-if="page != 1" @click="page--"> - </button>
-        <button type="button" class="btn pagination__btn" v-for="pageNumber in pages.slice(page-1, page+2)" :key="pageNumber.id" @click="page = pageNumber"> {{pageNumber}} </button>
-        <button type="button" class="btn pagination__btn" @click="page++" v-if="page < pages.length"> + </button>
-      </div>
+      
+
       <div class="main">
         <ul class="main__item">
-          <div class="sort">
-            <button class="btn sort__btn">Сортировка по первой букве</button>
-            <button class="btn sort__btn">Сортировка по дате</button>
-          </div>
-          <li class="main__list" v-for="item in displayedPosts" :key="item.id">
+          
+          <li class="main__list" v-for="item in filteredList" :key="item.id">
             <div class="main__contaier main__contaier--img">
               <img class="main__img" :src="item.avatar" alt="">
             </div>
@@ -48,11 +49,11 @@
           </li>          
         </ul>
       </div>
-      <div class="pagination">
+      <!-- <div class="pagination">
         <button type="button" class="btn pagination__btn" v-if="page != 1" @click="page--"> - </button>
         <button type="button" class="btn pagination__btn" v-for="pageNumber in pages.slice(page-1, page+2)" :key="pageNumber.id" @click="page = pageNumber"> {{pageNumber}} </button>
         <button type="button" class="btn pagination__btn" @click="page++" v-if="page < pages.length"> + </button>
-      </div>
+      </div> -->
     </div>
 
     <!-- <div class="popap added" v-if="popapAddedShow">
@@ -170,8 +171,8 @@ export default {
     return {
       posts: [],
       active: 0,
-      page: 1,
-      perPage: 10,
+      // page: 1,
+      // perPage: 10,
       pages: [],
       searchName: '',
       // popapAddedShow: false,
@@ -186,22 +187,22 @@ export default {
           this.posts = response.data;
         })
         .catch(response => {
-          console.log(response);
-      });
+          console.log(response)
+      })
     },
-    setPages () {
-      let numberOfPages = Math.ceil(this.posts.length / this.perPage);
-      for (let index = 1; index <= numberOfPages; index++) {
-        this.pages.push(index)
-      }
-    },
-    paginate (postsa) {
-      let page = this.page;
-      let perPage = this.perPage;
-      let from = (page * perPage) - perPage;
-      let to = (page * perPage);
-      return  postsa.slice(from, to)
-    },
+    // setPages () {
+    //   let numberOfPages = Math.ceil(this.posts.length / this.perPage);
+    //   for (let index = 1; index <= numberOfPages; index++) {
+    //     this.pages.push(index)
+    //   }
+    // },
+    // paginate (posts) {
+    //   let page = this.page;
+    //   let perPage = this.perPage;
+    //   let from = (page * perPage) - perPage;
+    //   let to = (page * perPage);
+    //   return  posts.slice(from, to)
+    // },
     submitAded () {
 
     },
@@ -211,22 +212,42 @@ export default {
       this.popapDetailShow = true
     },
     // submitDetail () {      
-      // this.posts[this.active] = this.popapDetailArr
-      // this.popapDetailShow = false
+    //   this.posts[this.active] = this.popapDetailArr
+    //   this.popapDetailShow = false
     // }
+    sortName() {
+      return this.posts.sort((a, b) => { 
+        if (a.name > b.name) {
+          return 1;
+        }
+        if (a.name < b.name) {
+          return -1;
+        }
+        return 0;
+      });
+    }
   },
   created () {
-    this.getPosts();
+    this.getPosts()
+
   },
   watch: {
-    posts () {
-      this.setPages();
-    }
+    // posts () {
+    //   this.setPages()
+    // }
   },
   computed: {
-    displayedPosts () {
-      return this.paginate(this.posts);
-    }
+    // displayedPosts () {
+    //   return this.paginate(this.posts)
+    // },
+    filteredList: function(){
+      let searchName = this.searchName;
+      return this.posts.filter(function (elem) {
+        return elem.name.toLowerCase().indexOf(searchName.toLowerCase()) !== -1;
+      })
+    },
+
+
   },
 }
 </script>

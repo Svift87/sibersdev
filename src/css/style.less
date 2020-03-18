@@ -1,5 +1,6 @@
 body {
     font-family: sans-serif;
+    overflow-x: hidden;
 }
 ul {
     list-style: none;
@@ -215,4 +216,27 @@ button {
     .main__contaier.main__contaier--adress {
         width: 100%;
     }
+    .nav {
+        flex-direction: column;
+        align-items: center;
+    }
+    .search {
+        margin-bottom: 20px;
+    }
+    .search__lable  {
+        text-align: center;
+    }
+    .added__block--input, 
+    .detail__block--input {
+        width: 100%;
+        padding-right: 15px;
+    }
+    .added__block, .detail__block {
+        margin-bottom: 10px;
+        max-height: 74vh;
+        overflow: scroll;
+    }
+}
+@media (max-height: 620px) {
+
 }

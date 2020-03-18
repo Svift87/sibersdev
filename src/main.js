@@ -12,6 +12,10 @@ import './css/style.less'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
+// Импортируем animate.css для создания анимаций
+import animate from 'animate.css'
+
+// Активируем axios для работы с запросами
 Vue.use(VueAxios, axios)
 
 Vue.config.productionTip = false

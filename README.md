@@ -1,5 +1,7 @@
 # sibersdev
 
+## Собранный проект находится в папке dist, убрал его из .gitignore для удобства
+
 ## Project setup
 ```
 npm install
